@@ -22,13 +22,16 @@ workbook = openpyxl.load_workbook('planilha.xlsx')
 page = workbook['Sheet1']
 erros = []
 
-for line in page.iter_rows(min_row=2):#min_row é referente a linha inicial da leitura
+for line in page.iter_rows(min_row=2):# min_row é referente a linha inicial da leitura
     #nome, telefone, mensagem
     nome = line[0].value
+    if not isinstance(nome,str): # Checa se a instancia é string para cortar o loop
+        print ("esses contatos não foram alcançados", erros)
+        exit()
     telefone = line[1].value
     mensagem = line[2].value
-    mensagem = f'{nome} {mensagem}' #formata para primeiro o nome e a mensagem a ser passada
-    #mensagem a ser formatada: https://web.whatsapp.com/send?phone=&text=
+    mensagem = f'{nome} {mensagem}' # formata para primeiro o nome e a mensagem a ser passada
+    # mensagem a ser formatada: https://web.whatsapp.com/send?phone=&text=
     mensagemformatada = f'https://web.whatsapp.com/send?phone={telefone}&text={quote(mensagem)}'
 
      # utilizando o quotes, da biblioteca urllib.parse, é possível formatar a mensagem para o padrão do whatsapp web link
@@ -41,9 +44,5 @@ for line in page.iter_rows(min_row=2):#min_row é referente a linha inicial da l
         sleep(5)
     except:
         print(f'não foi possível mandar a mensagem para {nome}') 
-        #caso uma mensagem não seja passada para alguem, vai ficar salvo no terminal
+        # caso uma mensagem não seja passada para alguem, vai ficar salvo no terminal
         erros.append([nome,telefone])
-
-#percebi que o código está rodando infinitamente, ainda estou verificando como parar ao final da lista
-
-    
