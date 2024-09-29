@@ -31,9 +31,9 @@ for line in page.iter_rows(min_row=2):#min_row é referente a linha inicial da l
     #mensagem a ser formatada: https://web.whatsapp.com/send?phone=&text=
     mensagemformatada = f'https://web.whatsapp.com/send?phone={telefone}&text={quote(mensagem)}'
 
+     # utilizando o quotes, da biblioteca urllib.parse, é possível formatar a mensagem para o padrão do whatsapp web link
+    webbrowser.open(mensagemformatada) # aqui é aberto o link formatado com a mensagem pronta para ser enviada
     try:
-        # utilizando o quotes, da biblioteca urllib.parse, é possível formatar a mensagem para o padrão do whatsapp web link
-        webbrowser.open(mensagemformatada) # aqui é aberto o link formatado com a mensagem pronta para ser enviada
         sleep(10)
         pyautogui.hotkey('enter')
         sleep(2)
